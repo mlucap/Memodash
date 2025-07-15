@@ -7,7 +7,7 @@ import { useState } from "react";
 import Logo from "../../../../public/logo.png"
 import useAuth from "../../../../hooks/useAuth";
 
-export default function Login() {
+export default function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [verifyPassword, setVerifyPassword] = useState("")
