@@ -6,6 +6,7 @@ import { setPersistence, browserLocalPersistence, createUserWithEmailAndPassword
 import { useState } from "react";
 import Logo from "../../../../public/logo.png"
 import useAuth from "../../../../hooks/useAuth";
+import { getBetterErrorMessages } from "../../../../utils/betterErrorMessages";
 
 export default function Register() {
     const [email, setEmail] = useState("")
@@ -25,8 +26,12 @@ export default function Register() {
                 return;
             }
             await setPersistence(auth, browserLocalPersistence);
-            const userCreds = await createUserWithEmailAndPassword(auth, email, password);
-            console.log(userCreds.user);
+            await createUserWithEmailAndPassword(auth, email, password)
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const betterErrorMessage = getBetterErrorMessages(errorCode);
+                    setError(betterErrorMessage);
+                });
         } catch (error) {
             setError(String(error))
         }
@@ -45,9 +50,14 @@ export default function Register() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <p>{error}</p>
                 <form className="space-y-6" onSubmit={handleClick}>
                     <div>
+                        {
+                            error && (
+                                <div className="flex justify-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                    <span className="font-medium">{error}</span>
+                                </div>
+                            )}
                         <label htmlFor="email" className="block text-sm/6 font-medium text-white-900">Email address</label>
                         <div className="mt-2">
                             <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" autoComplete="email" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
