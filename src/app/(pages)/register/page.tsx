@@ -13,7 +13,7 @@ export default function Register() {
     const [verifyPassword, setVerifyPassword] = useState("")
     const [error, setError] = useState("")
 
-    useAuth()
+    useAuth("/register")
 
     const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
