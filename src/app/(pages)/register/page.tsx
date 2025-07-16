@@ -7,6 +7,7 @@ import { useState } from "react";
 import Logo from "../../../../public/logo.png"
 import useAuth from "../../../../hooks/useAuth";
 import { getBetterErrorMessages } from "../../../../utils/betterErrorMessages";
+import Link from "next/link";
 
 export default function Register() {
     const [email, setEmail] = useState("")
@@ -38,14 +39,16 @@ export default function Register() {
     }
 
     return (
-        <div className="flex h-screen min-h-full flex-col justify-center pt-24 px-6 py-12 lg:px-8">
+        <div className="flex h-screen min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <Image className="mx-auto h-10 w-auto"
-                    src={Logo}
-                    alt="Memodash logo"
-                    height={48}
-                    width={48}
-                />
+                <Link href="/">
+                    <Image className="mx-auto h-10 w-auto"
+                        src={Logo}
+                        alt="Memodash logo"
+                        height={48}
+                        width={48}
+                    />
+                </Link>
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white-900">Register a new account</h2>
             </div>
 
@@ -85,9 +88,9 @@ export default function Register() {
                         <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                             Register
                         </button>
-                        <GoogleSignIn />
                     </div>
                 </form>
+                <GoogleSignIn />
 
                 <p className="mt-10 text-center text-sm/6 text-gray-500">
                     Already a member?
